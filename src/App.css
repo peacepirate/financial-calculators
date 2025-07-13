@@ -22,12 +22,7 @@ body {
 }
 
 .tab-navigation {
-  background: 
-    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
-    radial-gradient(ellipse at top, rgba(255, 69, 0, 0.15) 0%, transparent 70%),
-    radial-gradient(ellipse at bottom left, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom right, rgba(255, 140, 0, 0.1) 0%, transparent 50%),
-    linear-gradient(135deg, #2d3436 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, #2d3436 0%, #1a1a1a 100%);
   border-bottom: 1px solid #636e72;
   margin: 0 -20px 20px -20px;
   padding: 0;
@@ -126,42 +121,19 @@ body {
   border-radius: 0;
   box-shadow: none;
   border: none;
-  border-bottom: 1px solid rgba(255, 140, 0, 0.2);
+  border-bottom: 1px solid #636e72;
   position: relative;
   overflow: hidden;
 }
 
-.tab-navigation::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.15), rgba(255, 140, 0, 0.1), transparent);
-  animation: headlight-sweep 6s infinite;
-}
 
-.tab-navigation .app-header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.15), transparent);
-  animation: headlight-sweep 6s infinite;
-}
 
 
 .tab-navigation .app-header h1 {
   font-size: 2rem;
   margin-bottom: 8px;
   font-weight: 600;
-  text-shadow: 
-    2px 2px 4px rgba(0, 0, 0, 0.8),
-    0 0 10px rgba(255, 215, 0, 0.2),
-    0 0 20px rgba(255, 140, 0, 0.15);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   position: relative;
   z-index: 1;
   color: #999;
@@ -171,9 +143,7 @@ body {
 .tab-navigation .app-header p {
   font-size: 1rem;
   opacity: 0.95;
-  text-shadow: 
-    1px 1px 2px rgba(0, 0, 0, 0.8),
-    0 0 5px rgba(255, 215, 0, 0.15);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   position: relative;
   z-index: 1;
   color: #f0f0f0;
@@ -444,8 +414,8 @@ body {
   letter-spacing: 1px;
   text-shadow: 
     2px 2px 4px rgba(0, 0, 0, 0.8),
-    0 0 8px rgba(46, 204, 113, 0.3),
-    0 0 15px rgba(39, 174, 96, 0.2);
+    0 0 8px rgba(200, 255, 200, 0.4),
+    0 0 15px rgba(180, 255, 180, 0.3);
 }
 
 .recommendation-banner.leasing .recommendation-choice {
@@ -461,7 +431,7 @@ body {
   text-align: right;
   text-shadow: 
     1px 1px 2px rgba(0, 0, 0, 0.8),
-    0 0 5px rgba(46, 204, 113, 0.2);
+    0 0 5px rgba(200, 255, 200, 0.3);
 }
 
 .recommendation-banner.leasing .recommendation-savings {
@@ -499,7 +469,7 @@ body {
 }
 
 .buying-header {
-  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  background: linear-gradient(135deg, #1e4d32, #2d5a3d);
   color: #ddd;
   text-align: center;
   margin: 0;
@@ -509,7 +479,7 @@ body {
 }
 
 .leasing-header {
-  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  background: linear-gradient(135deg, #4d1e1e, #5a2d2d);
   color: #ddd;
   text-align: center;
   margin: 0;
@@ -523,7 +493,7 @@ body {
 }
 
 .pros-section h6 {
-  color: #27ae60;
+  color: #52a373;
   font-size: 1rem;
   font-weight: 600;
   margin: 0 0 10px 0;
@@ -534,7 +504,7 @@ body {
 .pros-section h6:before {
   font-family: "Lineicons";
   content: "\ea07";
-  background: #27ae60;
+  background: #52a373;
   color: #999;
   border-radius: 50%;
   width: 18px;
@@ -548,7 +518,7 @@ body {
 }
 
 .cons-section h6 {
-  color: #e74c3c;
+  color: #b85b5b;
   font-size: 1rem;
   font-weight: 600;
   margin: 0 0 10px 0;
@@ -559,7 +529,7 @@ body {
 .cons-section h6:before {
   font-family: "Lineicons";
   content: "\ea0f";
-  background: #e74c3c;
+  background: #b85b5b;
   color: #999;
   border-radius: 50%;
   width: 18px;
@@ -592,7 +562,7 @@ body {
 .pros-section li:before {
   font-family: "Lineicons";
   content: "\ea5e";
-  color: #27ae60;
+  color: #52a373;
   margin-right: 8px;
   font-weight: bold;
   font-size: 0.8rem;
@@ -601,7 +571,7 @@ body {
 .cons-section li:before {
   font-family: "Lineicons";
   content: "\ea76";
-  color: #e74c3c;
+  color: #b85b5b;
   margin-right: 8px;
   font-weight: bold;
   font-size: 0.8rem;
