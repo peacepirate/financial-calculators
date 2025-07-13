@@ -83,7 +83,7 @@ export const calculateHomeAppreciation = (homePrice, appreciationRate, years) =>
   return values;
 };
 
-export const calculateInvestmentGrowth = (initialInvestment, monthlyContribution, annualReturn, annualFees, years) => {
+export const calculateInvestmentGrowth = (initialInvestment, monthlyContribution, annualReturn, annualFees, years, variableContributions = null) => {
   const values = [];
   let currentValue = initialInvestment;
   const monthlyReturn = (annualReturn - annualFees) / 100 / 12;
@@ -95,9 +95,12 @@ export const calculateInvestmentGrowth = (initialInvestment, monthlyContribution
         value: currentValue
       });
     } else {
+      // Use variable contributions if provided, otherwise use fixed amount
+      const yearlyContribution = variableContributions ? variableContributions[year] : monthlyContribution;
+      
       // Compound growth with monthly contributions
       for (let month = 0; month < 12; month++) {
-        currentValue = currentValue * (1 + monthlyReturn) + monthlyContribution;
+        currentValue = currentValue * (1 + monthlyReturn) + yearlyContribution;
       }
       values.push({
         year,
@@ -117,33 +120,51 @@ export const calculateHomeCostComparison = (homePrice, mortgageData, rentData, p
   // Calculate investment growth if renting (using down payment + monthly difference/savings)
   let investmentValues = null;
   if (investmentData) {
-    const totalRentCost = rentData.monthlyRent + rentData.rentersInsurance / 12;
-    const monthlyCostDifference = mortgageCosts.totalMonthlyCost - totalRentCost;
+    // Calculate variable monthly contributions based on changing rent vs mortgage costs
+    const monthlyContributions = [];
+    let currentRentForCalc = rentData.monthlyRent;
     
-    let monthlyInvestmentFromDifference = 0;
-    if (monthlyCostDifference > 0) {
-      // Renting is cheaper - invest the full difference
-      monthlyInvestmentFromDifference = monthlyCostDifference;
-    } else {
-      // Buying is cheaper - invest specified percentage of the savings
-      monthlyInvestmentFromDifference = Math.abs(monthlyCostDifference) * (investmentData.savingsInvestmentRate / 100);
+    for (let year = 0; year <= years; year++) {
+      if (year > 0) {
+        currentRentForCalc *= (1 + rentData.rentIncrease / 100);
+      }
+      
+      const totalRentCost = currentRentForCalc + rentData.rentersInsurance / 12;
+      const monthlyCostDifference = mortgageCosts.totalMonthlyCost - totalRentCost;
+      
+      let monthlyInvestmentFromDifference = 0;
+      if (monthlyCostDifference > 0) {
+        // Renting is cheaper - invest the full difference
+        monthlyInvestmentFromDifference = monthlyCostDifference;
+      } else {
+        // Buying is cheaper - invest specified percentage of the savings
+        monthlyInvestmentFromDifference = Math.abs(monthlyCostDifference) * (investmentData.savingsInvestmentRate / 100);
+      }
+      
+      monthlyContributions[year] = investmentData.monthlyInvestment + monthlyInvestmentFromDifference;
     }
     
-    const totalMonthlyInvestment = investmentData.monthlyInvestment + monthlyInvestmentFromDifference;
     investmentValues = calculateInvestmentGrowth(
       mortgageCosts.downPayment + mortgageCosts.closingCosts,
-      totalMonthlyInvestment,
+      0, // Will use variable contributions instead
       investmentData.annualReturn,
       investmentData.annualFees,
-      years
+      years,
+      monthlyContributions
     );
     
-    // Store investment details for tooltips
+    // Store investment details for tooltips (using first year values)
+    const firstYearRentCost = rentData.monthlyRent + rentData.rentersInsurance / 12;
+    const firstYearDifference = mortgageCosts.totalMonthlyCost - firstYearRentCost;
+    const firstYearFromDifference = firstYearDifference > 0 ? 
+      firstYearDifference : 
+      Math.abs(firstYearDifference) * (investmentData.savingsInvestmentRate / 100);
+    
     investmentValues.monthlyDetails = {
-      totalMonthlyInvestment,
-      monthlyInvestmentFromDifference,
+      totalMonthlyInvestment: monthlyContributions[1] || 0,
+      monthlyInvestmentFromDifference: firstYearFromDifference,
       additionalMonthlyInvestment: investmentData.monthlyInvestment,
-      savingsSource: monthlyCostDifference > 0 ? 'from rent savings' : `from ${investmentData.savingsInvestmentRate}% of buy savings`
+      savingsSource: firstYearDifference > 0 ? 'from rent savings' : `from ${investmentData.savingsInvestmentRate}% of buy savings`
     };
   }
   

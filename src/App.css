@@ -22,13 +22,22 @@ body {
 }
 
 .tab-navigation {
-  background: linear-gradient(135deg, #2d3436 0%, #1a1a1a 100%);
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
+    radial-gradient(ellipse at top, rgba(255, 69, 0, 0.15) 0%, transparent 70%),
+    radial-gradient(ellipse at bottom left, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(255, 140, 0, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #2d3436 0%, #1a1a1a 100%);
   border-bottom: 1px solid #636e72;
   margin: 0 -20px 20px -20px;
   padding: 0;
   position: sticky;
   top: 0;
   z-index: 100;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  position: relative;
+  overflow: hidden;
 }
 
 .tab-container {
@@ -111,21 +120,26 @@ body {
 .tab-navigation .app-header {
   text-align: center;
   margin: 0;
-  background: 
-    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
-    radial-gradient(ellipse at top, rgba(255, 69, 0, 0.3) 0%, transparent 70%),
-    radial-gradient(ellipse at bottom left, rgba(255, 215, 0, 0.2) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom right, rgba(255, 140, 0, 0.2) 0%, transparent 50%),
-    linear-gradient(135deg, #1a1a1a 0%, #2c1810 25%, #1a0f0a 50%, #0a0505 100%);
-  background-size: cover, cover, cover, cover, cover;
+  background: transparent;
   color: #999;
   padding: 30px 20px 20px 20px;
   border-radius: 0;
   box-shadow: none;
   border: none;
-  border-bottom: 1px solid rgba(255, 140, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 140, 0, 0.2);
   position: relative;
   overflow: hidden;
+}
+
+.tab-navigation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.15), rgba(255, 140, 0, 0.1), transparent);
+  animation: headlight-sweep 6s infinite;
 }
 
 .tab-navigation .app-header::before {
@@ -135,8 +149,8 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), rgba(255, 140, 0, 0.2), transparent);
-  animation: headlight-sweep 4s infinite;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.15), transparent);
+  animation: headlight-sweep 6s infinite;
 }
 
 
@@ -146,8 +160,8 @@ body {
   font-weight: 600;
   text-shadow: 
     2px 2px 4px rgba(0, 0, 0, 0.8),
-    0 0 20px rgba(255, 215, 0, 0.5),
-    0 0 40px rgba(255, 140, 0, 0.3);
+    0 0 10px rgba(255, 215, 0, 0.2),
+    0 0 20px rgba(255, 140, 0, 0.15);
   position: relative;
   z-index: 1;
   color: #999;
@@ -159,7 +173,7 @@ body {
   opacity: 0.95;
   text-shadow: 
     1px 1px 2px rgba(0, 0, 0, 0.8),
-    0 0 10px rgba(255, 215, 0, 0.3);
+    0 0 5px rgba(255, 215, 0, 0.15);
   position: relative;
   z-index: 1;
   color: #f0f0f0;
@@ -358,18 +372,18 @@ body {
 
 .recommendation-banner {
   background: 
-    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
-    radial-gradient(ellipse at top left, rgba(46, 204, 113, 0.4) 0%, transparent 60%),
-    radial-gradient(ellipse at bottom right, rgba(39, 174, 96, 0.3) 0%, transparent 50%),
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+    radial-gradient(ellipse at top left, rgba(46, 204, 113, 0.2) 0%, transparent 60%),
+    radial-gradient(ellipse at bottom right, rgba(39, 174, 96, 0.15) 0%, transparent 50%),
     linear-gradient(135deg, #1a1a1a 0%, #1a2c1a 25%, #0f1a0f 50%, #050a05 100%);
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 30px;
   box-shadow: 
-    0 8px 32px rgba(39, 174, 96, 0.3),
-    0 4px 16px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(46, 204, 113, 0.4);
+    0 4px 16px rgba(39, 174, 96, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(46, 204, 113, 0.2);
   position: relative;
   overflow: hidden;
 }
@@ -385,15 +399,15 @@ body {
 
 .recommendation-banner.leasing {
   background: 
-    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
-    radial-gradient(ellipse at top left, rgba(231, 76, 60, 0.4) 0%, transparent 60%),
-    radial-gradient(ellipse at bottom right, rgba(192, 57, 43, 0.3) 0%, transparent 50%),
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+    radial-gradient(ellipse at top left, rgba(231, 76, 60, 0.2) 0%, transparent 60%),
+    radial-gradient(ellipse at bottom right, rgba(192, 57, 43, 0.15) 0%, transparent 50%),
     linear-gradient(135deg, #1a1a1a 0%, #2c1a1a 25%, #1a0f0f 50%, #0a0505 100%);
-  border-color: rgba(231, 76, 60, 0.4);
+  border-color: rgba(231, 76, 60, 0.2);
   box-shadow: 
-    0 8px 32px rgba(231, 76, 60, 0.3),
-    0 4px 16px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 4px 16px rgba(231, 76, 60, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .recommendation-banner::before {
@@ -403,12 +417,12 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(46, 204, 113, 0.3), rgba(39, 174, 96, 0.2), transparent);
-  animation: recommendation-sweep 5s infinite;
+  background: linear-gradient(90deg, transparent, rgba(46, 204, 113, 0.15), rgba(39, 174, 96, 0.1), transparent);
+  animation: recommendation-sweep 7s infinite;
 }
 
 .recommendation-banner.leasing::before {
-  background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.3), rgba(192, 57, 43, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.15), rgba(192, 57, 43, 0.1), transparent);
 }
 
 .recommendation-main {
@@ -430,15 +444,15 @@ body {
   letter-spacing: 1px;
   text-shadow: 
     2px 2px 4px rgba(0, 0, 0, 0.8),
-    0 0 15px rgba(46, 204, 113, 0.6),
-    0 0 30px rgba(39, 174, 96, 0.4);
+    0 0 8px rgba(46, 204, 113, 0.3),
+    0 0 15px rgba(39, 174, 96, 0.2);
 }
 
 .recommendation-banner.leasing .recommendation-choice {
   text-shadow: 
     2px 2px 4px rgba(0, 0, 0, 0.8),
-    0 0 15px rgba(231, 76, 60, 0.6),
-    0 0 30px rgba(192, 57, 43, 0.4);
+    0 0 8px rgba(231, 76, 60, 0.3),
+    0 0 15px rgba(192, 57, 43, 0.2);
 }
 
 .recommendation-savings {
@@ -447,13 +461,13 @@ body {
   text-align: right;
   text-shadow: 
     1px 1px 2px rgba(0, 0, 0, 0.8),
-    0 0 10px rgba(46, 204, 113, 0.4);
+    0 0 5px rgba(46, 204, 113, 0.2);
 }
 
 .recommendation-banner.leasing .recommendation-savings {
   text-shadow: 
     1px 1px 2px rgba(0, 0, 0, 0.8),
-    0 0 10px rgba(231, 76, 60, 0.4);
+    0 0 5px rgba(231, 76, 60, 0.2);
 }
 
 @keyframes recommendation-sweep {
@@ -598,13 +612,6 @@ body {
     padding: 10px;
   }
   
-  .app-header {
-    margin-left: -10px;
-    margin-right: -10px;
-    border-radius: 0;
-    padding: 30px 20px;
-  }
-  
   .app-main {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -638,8 +645,9 @@ body {
   }
   
   .tab-navigation {
-    margin: 0 -10px 20px -10px;
-    padding: 0 10px;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-bottom: 20px;
   }
   
   .tab-button {
@@ -670,19 +678,13 @@ body {
   }
   
   .tab-navigation {
-    margin: 0 -5px 20px -5px;
-    padding: 0 5px;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-bottom: 20px;
   }
   
   .tab-button {
     padding: 10px 12px;
-  }
-  
-  .app-header {
-    margin-left: -5px;
-    margin-right: -5px;
-    padding: 25px 15px;
-    border-radius: 0;
   }
   
   .app-header h1 {
