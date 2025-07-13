@@ -10,7 +10,7 @@ const LoanForm = ({ values, onChange }) => {
 
   return (
     <div className="form-section">
-      <h3>Loan Details</h3>
+      <h3><i className="lni lni-credit-cards"></i> Loan Details</h3>
       
       <div className="form-group">
         <label htmlFor="loan-down">Down Payment ($)</label>

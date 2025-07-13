@@ -4,25 +4,113 @@
   padding: 0;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@300;400;600;700&display=swap');
+@import url('https://cdn.lineicons.com/5.0/lineicons.css');
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Source Serif Pro', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #1a1a1a;
-  color: #e0e0e0;
+  color: #bbb;
 }
 
 .app {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 }
 
-.app-header {
+.tab-navigation {
+  background: linear-gradient(135deg, #2d3436 0%, #1a1a1a 100%);
+  border-bottom: 1px solid #636e72;
+  margin: 0 -20px 20px -20px;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.tab-container {
+  display: flex;
+  gap: 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.tab-button {
+  background: transparent;
+  border: none;
+  padding: 15px 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Source Serif Pro', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #bbb;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tab-button:hover {
+  background: rgba(116, 185, 255, 0.1);
+  color: #ddd;
+}
+
+.tab-button.active {
+  color: #74b9ff;
+  border-bottom-color: #74b9ff;
+  background: rgba(116, 185, 255, 0.05);
+}
+
+.tab-button.active .tab-icon {
+  color: #74b9ff;
+  text-shadow: 0 0 8px rgba(116, 185, 255, 0.3);
+}
+
+.tab-button:hover .tab-icon {
+  transform: translateY(-1px);
+  text-shadow: 0 0 6px rgba(221, 221, 221, 0.2);
+}
+
+.tab-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(116, 185, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.tab-button:hover::before {
+  left: 100%;
+}
+
+.tab-icon {
+  font-size: 1.3rem;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.tab-label {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.calculator-content {
+  padding-top: 0;
+}
+
+.tab-navigation .app-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin: 0;
   background: 
     linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
     radial-gradient(ellipse at top, rgba(255, 69, 0, 0.3) 0%, transparent 70%),
@@ -30,19 +118,17 @@ body {
     radial-gradient(ellipse at bottom right, rgba(255, 140, 0, 0.2) 0%, transparent 50%),
     linear-gradient(135deg, #1a1a1a 0%, #2c1810 25%, #1a0f0a 50%, #0a0505 100%);
   background-size: cover, cover, cover, cover, cover;
-  color: white;
-  padding: 40px 20px;
-  border-radius: 10px;
-  box-shadow: 
-    0 8px 32px rgba(255, 69, 0, 0.3),
-    0 4px 16px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 140, 0, 0.3);
+  color: #999;
+  padding: 30px 20px 20px 20px;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  border-bottom: 1px solid rgba(255, 140, 0, 0.3);
   position: relative;
   overflow: hidden;
 }
 
-.app-header::before {
+.tab-navigation .app-header::before {
   content: '';
   position: absolute;
   top: 0;
@@ -54,22 +140,22 @@ body {
 }
 
 
-.app-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  font-weight: 500;
+.tab-navigation .app-header h1 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  font-weight: 600;
   text-shadow: 
     2px 2px 4px rgba(0, 0, 0, 0.8),
     0 0 20px rgba(255, 215, 0, 0.5),
     0 0 40px rgba(255, 140, 0, 0.3);
   position: relative;
   z-index: 1;
-  color: #fff;
+  color: #999;
   letter-spacing: 1px;
 }
 
-.app-header p {
-  font-size: 1.1rem;
+.tab-navigation .app-header p {
+  font-size: 1rem;
   opacity: 0.95;
   text-shadow: 
     1px 1px 2px rgba(0, 0, 0, 0.8),
@@ -116,12 +202,20 @@ body {
 }
 
 .form-section h3 {
-  color: #74b9ff;
+  color: #bbb;
   margin-bottom: 20px;
   font-size: 1.3rem;
-  font-weight: 500;
+  font-weight: 600;
   border-bottom: 2px solid #74b9ff;
   padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-section h3 i {
+  color: #74b9ff;
+  font-size: 1.2rem;
 }
 
 .form-group {
@@ -143,7 +237,7 @@ body {
   font-size: 16px;
   transition: border-color 0.3s ease;
   background-color: #1a1a1a;
-  color: #e0e0e0;
+  color: #bbb;
 }
 
 .form-group input:focus {
@@ -177,7 +271,7 @@ body {
 
 .break-even-info p {
   margin: 0;
-  color: #e0e0e0;
+  color: #bbb;
   font-weight: 500;
 }
 
@@ -190,11 +284,20 @@ body {
 }
 
 .summary-container h3 {
-  color: #74b9ff;
+  color: #bbb;
   margin-bottom: 25px;
   font-size: 1.4rem;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.summary-container h3 i {
+  color: #74b9ff;
+  font-size: 1.3rem;
 }
 
 .summary-grid {
@@ -212,10 +315,10 @@ body {
 }
 
 .summary-section h4 {
-  color: #74b9ff;
+  color: #bbb;
   margin-bottom: 15px;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
 }
 
@@ -237,15 +340,15 @@ body {
 }
 
 .cost-item span:last-child {
-  font-weight: 500;
-  color: #e0e0e0;
+  font-weight: 600;
+  color: #bbb;
 }
 
 .cost-item.difference {
   margin-top: 10px;
   padding-top: 15px;
   border-top: 2px solid #74b9ff;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 
@@ -275,7 +378,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
+  color: #999;
   position: relative;
   z-index: 1;
 }
@@ -322,7 +425,7 @@ body {
 
 .recommendation-choice {
   font-size: 1.4rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
   text-shadow: 
@@ -340,7 +443,7 @@ body {
 
 .recommendation-savings {
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 600;
   text-align: right;
   text-shadow: 
     1px 1px 2px rgba(0, 0, 0, 0.8),
@@ -383,22 +486,22 @@ body {
 
 .buying-header {
   background: linear-gradient(135deg, #27ae60, #2ecc71);
-  color: white;
+  color: #ddd;
   text-align: center;
   margin: 0;
   padding: 12px;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .leasing-header {
   background: linear-gradient(135deg, #e74c3c, #c0392b);
-  color: white;
+  color: #ddd;
   text-align: center;
   margin: 0;
   padding: 12px;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .pros-section, .cons-section {
@@ -408,16 +511,17 @@ body {
 .pros-section h6 {
   color: #27ae60;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   margin: 0 0 10px 0;
   display: flex;
   align-items: center;
 }
 
 .pros-section h6:before {
-  content: "✓";
+  font-family: "Lineicons";
+  content: "\ea07";
   background: #27ae60;
-  color: white;
+  color: #999;
   border-radius: 50%;
   width: 18px;
   height: 18px;
@@ -432,16 +536,17 @@ body {
 .cons-section h6 {
   color: #e74c3c;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   margin: 0 0 10px 0;
   display: flex;
   align-items: center;
 }
 
 .cons-section h6:before {
-  content: "✗";
+  font-family: "Lineicons";
+  content: "\ea0f";
   background: #e74c3c;
-  color: white;
+  color: #999;
   border-radius: 50%;
   width: 18px;
   height: 18px;
@@ -471,17 +576,21 @@ body {
 }
 
 .pros-section li:before {
-  content: "•";
+  font-family: "Lineicons";
+  content: "\ea5e";
   color: #27ae60;
   margin-right: 8px;
   font-weight: bold;
+  font-size: 0.8rem;
 }
 
 .cons-section li:before {
-  content: "•";
+  font-family: "Lineicons";
+  content: "\ea76";
   color: #e74c3c;
   margin-right: 8px;
   font-weight: bold;
+  font-size: 0.8rem;
 }
 
 @media (max-width: 768px) {
@@ -528,6 +637,24 @@ body {
     gap: 15px;
   }
   
+  .tab-navigation {
+    margin: 0 -10px 20px -10px;
+    padding: 0 10px;
+  }
+  
+  .tab-button {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .tab-label {
+    display: none;
+  }
+  
+  .tab-icon {
+    font-size: 1.6rem;
+  }
+  
   .forms-container {
     order: 2;
   }
@@ -539,7 +666,16 @@ body {
 
 @media (max-width: 480px) {
   .app {
-    padding: 5px;
+    padding: 0 5px 5px 5px;
+  }
+  
+  .tab-navigation {
+    margin: 0 -5px 20px -5px;
+    padding: 0 5px;
+  }
+  
+  .tab-button {
+    padding: 10px 12px;
   }
   
   .app-header {

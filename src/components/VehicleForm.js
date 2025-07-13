@@ -10,7 +10,7 @@ const VehicleForm = ({ values, onChange }) => {
 
   return (
     <div className="form-section">
-      <h3>Vehicle Information</h3>
+      <h3><i className="lni lni-car"></i> Vehicle Information</h3>
       
       <div className="form-group">
         <label htmlFor="vehicle-price">Vehicle Price ($)</label>

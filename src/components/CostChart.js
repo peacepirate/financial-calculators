@@ -29,7 +29,7 @@ const CostChart = ({ comparison, breakEvenPoint, leaseParams }) => {
       legend: {
         position: 'top',
         labels: {
-          color: '#e0e0e0'
+          color: '#bbb'
         }
       },
       title: {
@@ -51,8 +51,8 @@ const CostChart = ({ comparison, breakEvenPoint, leaseParams }) => {
             if (context.dataset.label === 'Buy Total Payments') {
               return [
                 `${context.dataset.label}: $${context.parsed.y.toLocaleString()}`,
-                `🏠 Vehicle Value: $${comparisonData.vehicleValue.toLocaleString()}`,
-                `💎 Net Cost: $${comparisonData.netLoanCost.toLocaleString()}`
+                `▲ Vehicle Value: $${comparisonData.vehicleValue.toLocaleString()}`,
+                `◆ Net Cost: $${comparisonData.netLoanCost.toLocaleString()}`
               ];
             } else {
               return `${context.dataset.label}: $${context.parsed.y.toLocaleString()}`;
@@ -67,9 +67,9 @@ const CostChart = ({ comparison, breakEvenPoint, leaseParams }) => {
             if (isLeaseRenewal) {
               return [
                 '',
-                '🔄 Lease Renewal Year!',
-                `💰 New down payment: $${leaseParams.downPayment.toLocaleString()}`,
-                '📝 Starting new lease cycle'
+                '↻ Lease Renewal Year!',
+                `$ New down payment: $${leaseParams.downPayment.toLocaleString()}`,
+                '→ Starting new lease cycle'
               ];
             }
             return [];
@@ -86,7 +86,7 @@ const CostChart = ({ comparison, breakEvenPoint, leaseParams }) => {
             size: 14,
             weight: 'bold'
           },
-          color: '#e0e0e0'
+          color: '#bbb'
         },
         grid: {
           display: true,
@@ -104,7 +104,7 @@ const CostChart = ({ comparison, breakEvenPoint, leaseParams }) => {
             size: 14,
             weight: 'bold'
           },
-          color: '#e0e0e0'
+          color: '#bbb'
         },
         beginAtZero: true,
         grid: {
@@ -161,7 +161,7 @@ const CostChart = ({ comparison, breakEvenPoint, leaseParams }) => {
         tension: 0.4,
         fill: false,
         pointBackgroundColor: leasePointColors,
-        pointBorderColor: '#fff',
+        pointBorderColor: '#999',
         pointBorderWidth: 2,
         pointRadius: leasePointSizes
       },
@@ -173,7 +173,7 @@ const CostChart = ({ comparison, breakEvenPoint, leaseParams }) => {
         tension: 0.4,
         fill: false,
         pointBackgroundColor: '#3498db',
-        pointBorderColor: '#fff',
+        pointBorderColor: '#999',
         pointBorderWidth: 2,
         pointRadius: 4
       }

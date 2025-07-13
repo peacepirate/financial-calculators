@@ -18,7 +18,7 @@ const Summary = ({ results, vehiclePrice, comparisonYears }) => {
 
   return (
     <div className="summary-container">
-      <h3>Cost Analysis Summary</h3>
+      <h3><i className="lni lni-bar-chart"></i> Cost Analysis Summary</h3>
       
       <div className="summary-grid">
         <div className="summary-section">
@@ -31,7 +31,7 @@ const Summary = ({ results, vehiclePrice, comparisonYears }) => {
             <span>Lease Payment:</span>
             <span>${leaseMonthlyPayment.toLocaleString()}</span>
           </div>
-          <div className="cost-item difference">
+          <div className="cost-item">
             <span>Monthly Difference:</span>
             <span>${Math.abs(loanMonthlyPayment - leaseMonthlyPayment).toLocaleString()}</span>
           </div>
