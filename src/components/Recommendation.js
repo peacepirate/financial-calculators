@@ -45,6 +45,31 @@ const Recommendation = ({ results, comparisonYears, type = 'car' }) => {
     );
   }
   
+  if (type === 'tool') {
+    const totalRentCostOverPeriod = finalYear.rentCost;
+    const totalBuyCostOverPeriod = finalYear.buyCost;
+    
+    const savings = totalRentCostOverPeriod - totalBuyCostOverPeriod;
+    const betterOption = savings > 0 ? 'buying' : 'renting';
+    const savingsAmount = Math.abs(savings);
+
+    return (
+      <div className={`recommendation-banner ${betterOption === 'renting' ? 'leasing' : betterOption}`}>
+        <div className="recommendation-content">
+          <div className="recommendation-main">
+            <span className="recommendation-label">Recommendation:</span>
+            <span className="recommendation-choice">
+              {betterOption === 'buying' ? 'Buy' : 'Rent'} this tool
+            </span>
+          </div>
+          <div className="recommendation-savings">
+            Save ${savingsAmount.toLocaleString()} over {comparisonYears} months
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
   // Car calculation logic (existing)
   const totalLeaseCostOverPeriod = finalYear.leaseCost;
   const totalNetBuyCostOverPeriod = finalYear.netLoanCost;

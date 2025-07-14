@@ -34,7 +34,9 @@ const CostChart = ({ comparison, breakEvenPoint, leaseParams, type = 'car', inve
       },
       title: {
         display: true,
-        text: type === 'home' ? 'Rent vs Buy Cost Comparison Over Time' : 'Total Cost Comparison Over Time',
+        text: type === 'home' ? 'Rent vs Buy Cost Comparison Over Time' : 
+              type === 'tool' ? 'Tool Rent vs Buy Cost Comparison Over Time' : 
+              'Total Cost Comparison Over Time',
         font: {
           size: 16
         },
@@ -68,6 +70,15 @@ const CostChart = ({ comparison, breakEvenPoint, leaseParams, type = 'car', inve
               } else {
                 return `${context.dataset.label}: $${context.parsed.y.toLocaleString()}`;
               }
+            } else if (type === 'tool') {
+              if (context.dataset.label === 'Buy Total Payments') {
+                return [
+                  `${context.dataset.label}: $${context.parsed.y.toLocaleString()}`,
+                  `◆ Net Cost: $${comparisonData.buyCost.toLocaleString()}`
+                ];
+              } else {
+                return `${context.dataset.label}: $${context.parsed.y.toLocaleString()}`;
+              }
             } else {
               if (context.dataset.label === 'Buy Total Payments') {
                 return [
@@ -81,7 +92,7 @@ const CostChart = ({ comparison, breakEvenPoint, leaseParams, type = 'car', inve
             }
           },
           afterBody: function(tooltipItems) {
-            if (type === 'home') {
+            if (type === 'home' || type === 'tool') {
               return [];
             }
             
@@ -107,7 +118,7 @@ const CostChart = ({ comparison, breakEvenPoint, leaseParams, type = 'car', inve
       x: {
         title: {
           display: true,
-          text: 'Time (Years)',
+          text: type === 'tool' ? 'Time (Months)' : 'Time (Years)',
           font: {
             size: 14,
             weight: 'bold'
@@ -161,11 +172,11 @@ const CostChart = ({ comparison, breakEvenPoint, leaseParams, type = 'car', inve
     }
   };
 
-  const labels = comparison.map(item => item.year);
+  const labels = comparison.map(item => type === 'tool' ? `Month ${item.year}` : item.year);
 
   // Create arrays for special styling of lease renewal points (car only)
   let leasePointColors, leasePointSizes;
-  if (type === 'car') {
+  if (type === 'car' && leaseParams) {
     leasePointColors = comparison.map((item, index) => {
       const year = item.year;
       const isLeaseRenewal = year > 0 && year % leaseParams.termYears === 0 && year < comparison.length - 1;
@@ -235,25 +246,25 @@ const CostChart = ({ comparison, breakEvenPoint, leaseParams, type = 'car', inve
       }
     ] : [
       {
-        label: 'Lease Total Payments',
+        label: type === 'tool' ? 'Rent Total Cost' : 'Lease Total Payments',
         data: comparison.map(item => item.leaseCost),
-        borderColor: '#e74c3c',
-        backgroundColor: 'rgba(231, 76, 60, 0.1)',
+        borderColor: '#b85b5b',
+        backgroundColor: 'rgba(184, 91, 91, 0.1)',
         tension: 0.4,
         fill: false,
-        pointBackgroundColor: leasePointColors,
+        pointBackgroundColor: type === 'tool' ? '#b85b5b' : leasePointColors,
         pointBorderColor: '#999',
         pointBorderWidth: 2,
-        pointRadius: leasePointSizes
+        pointRadius: type === 'tool' ? 4 : leasePointSizes
       },
       {
-        label: 'Buy Total Payments',
+        label: type === 'tool' ? 'Buy Total Cost' : 'Buy Total Payments',
         data: comparison.map(item => item.loanCost),
-        borderColor: '#3498db',
-        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+        borderColor: '#52a373',
+        backgroundColor: 'rgba(82, 163, 115, 0.1)',
         tension: 0.4,
         fill: false,
-        pointBackgroundColor: '#3498db',
+        pointBackgroundColor: '#52a373',
         pointBorderColor: '#999',
         pointBorderWidth: 2,
         pointRadius: 4

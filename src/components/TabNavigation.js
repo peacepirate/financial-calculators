@@ -4,7 +4,7 @@ const TabNavigation = ({ activeTab, onTabChange }) => {
   const tabs = [
     { id: 'car', label: 'Car', icon: 'lni lni-car' },
     { id: 'home', label: 'Home', icon: 'lni lni-home' },
-    { id: 'services', label: 'Services', icon: 'lni lni-cog' }
+    { id: 'tools', label: 'Tools', icon: 'lni lni-hammer' }
   ];
 
   return (

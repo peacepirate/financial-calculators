@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TabNavigation from './components/TabNavigation';
 import CarCalculator from './components/CarCalculator';
 import HomeCalculator from './components/HomeCalculator';
-import ServicesCalculator from './components/ServicesCalculator';
+import ToolsCalculator from './components/ToolsCalculator';
 import './App.css';
 
 function App() {
@@ -14,8 +14,8 @@ function App() {
         return <CarCalculator />;
       case 'home':
         return <HomeCalculator />;
-      case 'services':
-        return <ServicesCalculator />;
+      case 'tools':
+        return <ToolsCalculator />;
       default:
         return <CarCalculator />;
     }

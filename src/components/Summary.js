@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Summary = ({ results, vehiclePrice, comparisonYears, type = 'car' }) => {
+const Summary = ({ results, vehiclePrice, comparisonYears, type = 'car', toolName }) => {
   if (!results) return null;
 
   const { comparison } = results;
@@ -129,6 +129,130 @@ const Summary = ({ results, vehiclePrice, comparisonYears, type = 'car' }) => {
                     <li>No tax benefits</li>
                     <li>Limited control over property</li>
                     <li>No appreciation benefits</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  if (type === 'tool') {
+    const totalRentCostOverPeriod = finalYear.rentCost;
+    const totalBuyCostOverPeriod = finalYear.buyCost;
+    
+    const savings = totalRentCostOverPeriod - totalBuyCostOverPeriod;
+    const betterOption = savings > 0 ? 'buying' : 'renting';
+    const savingsAmount = Math.abs(savings);
+
+    return (
+      <div className="summary-container">
+        <h3><i className="lni lni-bar-chart"></i> Tool Cost Analysis Summary</h3>
+        
+        <div className="summary-grid">
+          <div className="summary-section">
+            <h4>{toolName || 'Tool'} Costs</h4>
+            <div className="cost-item">
+              <span>Purchase Price:</span>
+              <span>${vehiclePrice?.toLocaleString() || 'N/A'}</span>
+            </div>
+            <div className="cost-item">
+              <span>Total Rent Cost:</span>
+              <span>${totalRentCostOverPeriod.toLocaleString()}</span>
+            </div>
+            <div className="cost-item">
+              <span>Net Buy Cost:</span>
+              <span>${totalBuyCostOverPeriod.toLocaleString()}</span>
+            </div>
+            <div className="cost-item difference">
+              <span>Total Savings ({betterOption}):</span>
+              <span style={{color: betterOption === 'buying' ? '#52a373' : '#b85b5b'}}>
+                ${savingsAmount.toLocaleString()}
+              </span>
+            </div>
+          </div>
+
+          <div className="summary-section">
+            <h4>Usage Analysis</h4>
+            <div className="cost-item">
+              <span>Cost per Month (Rent):</span>
+              <span>${(totalRentCostOverPeriod / comparisonYears).toLocaleString()}</span>
+            </div>
+            <div className="cost-item">
+              <span>Cost per Month (Buy):</span>
+              <span>${(totalBuyCostOverPeriod / comparisonYears).toLocaleString()}</span>
+            </div>
+            <div className="cost-item">
+              <span>Better Option:</span>
+              <span style={{color: betterOption === 'buying' ? '#52a373' : '#b85b5b'}}>
+                {betterOption === 'buying' ? 'Buy' : 'Rent'}
+              </span>
+            </div>
+          </div>
+
+          <div className="summary-section">
+            <h4>Key Considerations</h4>
+            <div className="cost-item">
+              <span>Break-even Point:</span>
+              <span>Month {comparison.findIndex(year => year.savings <= 0) + 1 || 'N/A'}</span>
+            </div>
+            <div className="cost-item">
+              <span>ROI at {comparisonYears} months:</span>
+              <span style={{color: savings > 0 ? '#52a373' : '#b85b5b'}}>
+                {savings > 0 ? '+' : ''}${savings.toLocaleString()}
+              </span>
+            </div>
+          </div>
+
+          <div className="summary-section considerations">
+            <h4>Buying vs Renting Comparison</h4>
+            <div className="pros-cons-table">
+              <div className="comparison-column">
+                <h5 className="buying-header">Buying</h5>
+                <div className="pros-section">
+                  <h6>Pros</h6>
+                  <ul>
+                    <li>Own the tool permanently</li>
+                    <li>Use anytime without booking</li>
+                    <li>No rental time limits</li>
+                    <li>Potential resale value</li>
+                    <li>Customize and modify freely</li>
+                  </ul>
+                </div>
+                <div className="cons-section">
+                  <h6>Cons</h6>
+                  <ul>
+                    <li>High upfront investment</li>
+                    <li>Storage space required</li>
+                    <li>Maintenance responsibility</li>
+                    <li>Depreciation over time</li>
+                    <li>May become obsolete</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="comparison-column">
+                <h5 className="leasing-header">Renting</h5>
+                <div className="pros-section">
+                  <h6>Pros</h6>
+                  <ul>
+                    <li>No upfront investment</li>
+                    <li>No storage needed</li>
+                    <li>Maintenance included</li>
+                    <li>Access to latest models</li>
+                    <li>Try before buying</li>
+                  </ul>
+                </div>
+                <div className="cons-section">
+                  <h6>Cons</h6>
+                  <ul>
+                    <li>Recurring rental costs</li>
+                    <li>May not be available</li>
+                    <li>Time restrictions</li>
+                    <li>No ownership benefits</li>
+                    <li>Cost adds up over time</li>
                   </ul>
                 </div>
               </div>
